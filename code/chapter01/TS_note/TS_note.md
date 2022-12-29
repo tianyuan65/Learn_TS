@@ -122,8 +122,43 @@
         * [错误示范1](images/元祖.PNG)
         * [错误示范2](images/元祖2.PNG)
         * [错误示范3](images/元祖3.PNG)
-    * enum 枚举
+    * enum 枚举-在多个值之间进行选择时，适合使用枚举
+      * ```
+        枚举一个类，叫Gender，Gender里有两个值，male和female
+        enum Gender{
+          Male,
+          Female
+          }
+          let s:{name:string,gender:Gender}
+          s={
+          name:'Vilhelm',
+          //'男'/'male' 为了在数据库中占用的容量小，且属性名的值在一定范围内的，就设置为数值类型
+          gender:Gender.Male
+        }
+        console.log(s.gender===Gender.Male)  //true
+        ```
+   * 补充：
+      * | 或
+        * ```
+          表示k的类型是string或number
+          let k:string|number
+          
+          ```
+      * & 表示同时(且、与)
+        * 例举有病行为:
+          ```
+          //表示r的类型是string且number
+          let r:string&number ```
+        * 正常行为：
+          * ```
+            let z:{name:string}&{age:number}
+            z={name:"Marius",age:21}```
+      * 类型的别名，主要用来简化类型的使用
+        * ![错误示范](images/类型的别名.PNG)
+        * ![正确示范](images/类型的别名2.PNG)
 
+* TS编译选项(1)
+  * 
   
 
 ###总结

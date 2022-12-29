@@ -56,4 +56,39 @@ t=['hhhhh','aha']
 
 /*
  * enum 枚举
+ *  在多个值之间进行选择时，适合使用枚举
  */
+//枚举一个类，叫Gender，Gender里有两个值，male和female
+enum Gender{
+    Male,
+    Female
+}
+let s:{name:string,gender:Gender}
+s={
+    name:'Vilhelm',
+    //'男'/'male' 为了在数据库中占用的容量小，且属性名的值在一定范围内的，就设置为数值类型
+    gender:Gender.Male
+}
+
+// console.log(s.gender===Gender.Male)  //true
+
+//表示k的类型是string或number
+let k:string|number
+
+//表示r的类型是string且number  & 表示同时
+let r:string&number  //这是个有病行为
+let z:{name:string}&{age:number}  //这个就不是有病行为了
+z={name:"Marius",age:21}
+
+//类型的别名
+//给string类型创建了个别名，叫myType
+type myType=string
+type type1=1|2|3|4|5
+// let i:1|2|3|4|5
+let i:type1
+// let l:1|2|3|4|5
+let l:type1
+let m:myType
+
+i=5
+
