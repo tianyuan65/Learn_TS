@@ -1,0 +1,65 @@
+//加完此配置文件以后，ts文件就可以统一、一次性编译成js文件了
+//这里啥也不写照样好使
+{
+/*
+ * tsconfig.json文件是ts编译器的配置文件，ts编译器可以根据它的信息来对代码进行编译
+ *  "include"  用来指定哪些ts文件需要被编译
+ *    路径：** 表示任意目录
+ *          * 表示任意文件
+ *  "exclude"  不需要被编译的文件目录
+ *    默认值：["node_modules", "bower_components", "jspm_packages"]
+ */
+  "include": [
+    "./src/**/*"
+  ],
+  // 有了默认值，exclude可以不设置
+//  "exclude": [
+//    "./src/hello/**/*"
+//  ]
+  /*
+   * compilerOptions 编译器的选项
+   */
+  "compilerOptions": {
+    //target  用来指定ts被编译为的ES版本
+    //可选值：'es3','es5','es6','es2015','es2016','es2017','es2018','es2019','es2020'
+    "target": "es2015",
+    //module 指定要使用的模块化的规范
+    // 可选值：'none', 'commonjs', 'amd', 'system', 'umd', 'es6'
+    //'es2015', 'es2020', 'es2022', 'esnext', 'node16'
+    "module": "system",
+    //lib 用来指定项目中要使用的库
+    /* 可选值：
+     * 'es5', 'es6', 'es2015', 'es7', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'es2021', 'es2022', 'esnext', 'dom', 'dom.iterable', 'webworker',
+       'webworker.importscripts', 'webworker.iterable', 'scripthost', 'es2015.core', 'e2015.collection', 'es2015.generator', 'es2015.iterable', 'es2015.promise',
+       'es2015.proxy', 'es2015.reflect', 'es2015.symbol', 'es2015.symbol.wellknown', 'es2016.array.include', 'es2017.object', 'es2017.sharedmemory', 'es2017.string',
+       'es2017.intl', 'es2017.typedarrays', 'es2018.asyncgenerator', 'es2018.asynciterable', 'es2018.intl', 'es2018.promise', 'es2018.regexp', 'es2019.array',
+       'es2019.object', 'es2019.string', 'es2019.symbol', 'es2019.intl', 'es2020.bigint', 'es2020.date', 'es2020.promise', 'es2020.sharedmemory','es2020.string',
+       'es2020.symbol.wellknown', 'es2020.intl', 'es2020.number', 'es2021.promise', 'es2021.string', 'es2021.weakref', 'es2021.intl', 'es2022.array', 'es2022.error',
+       'es2022.intl', 'es2022.object', 'es2022.sharedmemory', 'es2022.string', 'esnext.array', 'esnext.symbol', 'esnext.asynciterable',esnext.intl', 'esnext.bigint',
+       'esnext.intl', 'esnext.bigint', 'esnext.string', 'esnext.promise', 'esnext.weakref'
+     * 默认值就是dom、es的各种版本(如：es5、6)等，浏览器运行的环境就是默认值
+     */
+    //"lib":["es6","dom"],
+
+    //outDir 用来指定编译后文件所在的目录
+    //默认情况下，编译后的js文件会和ts文件位于相同的目录，设置outDir后可以改变编译后文件的位置
+    "outDir": "./dist",
+
+    //outFile  将代码合并为一个文件
+    //设置outFile后，所有的全局作用域中的代码会合并到同一个文件中
+    "outFile": "./dist/app.js"
+  }
+}
+
+
+/* 这是webstorm默认的，可以删了，我在这儿就注了
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}*/

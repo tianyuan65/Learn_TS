@@ -124,13 +124,13 @@
         * [错误示范3](images/元祖3.PNG)
     * enum 枚举-在多个值之间进行选择时，适合使用枚举
       * ```
-        枚举一个类，叫Gender，Gender里有两个值，male和female
+        枚举一个类型，叫Gender，Gender里有两个值，male和female
         enum Gender{
           Male,
           Female
-          }
-          let s:{name:string,gender:Gender}
-          s={
+        }
+        let s:{name:string,gender:Gender}
+        s={
           name:'Vilhelm',
           //'男'/'male' 为了在数据库中占用的容量小，且属性名的值在一定范围内的，就设置为数值类型
           gender:Gender.Male
@@ -158,8 +158,44 @@
         * ![正确示范](images/类型的别名2.PNG)
 
 * TS编译选项(1)
-  * 
+  * 自动编译文件
+    * 编译文件时，使用 -w 指令后，TS编译器会自动监视文件的变化，并在文件发生变化时对文件进行重新编译。
+      * ```tsc xxx.ts -w```
+  * 自动编译整个项目
+    * 如果直接使用tsc指令，则可以自动将当前项目下的所有ts文件编译为js文件
+    *但是能直接使用tsc命令的前提时，要先在项目根目录下创建一个ts的配置文件tsconfig.json
+    * tsconfig.json是一个JSON文件，添加配置文件后，只需tsc命令即可完成对整个项目的编译
+    * 项目配置：
+      * include：用来指定哪些ts文件需要被编译
+        * ```"include":["./src/**/*"]```
+          * 所有src目录下的文件都会被编译
+      * exclude:不需要被编译的文件目录
+        * 默认值：["node_modules", "bower_components", "jspm_packages"]
+          * 有默认值的情况下，exclude可以不设置
+        * ```"exclude": ["./src/hello/**/*"]```
+          * src下hello目录下的文件都不会被编译
+        * 路径：** 表示任意目录；* 表示任意文件
+      * extends:定义被继承的配置文件
+        * ```"extends": "./configs/base"```
+        * 当配置文件特别复杂，又不想重复写，就可以把config目录下base.json中的所有配置信息合并到tsconfig.json文件中
+      * files:指定被编译文件的列表，只有需要编译的文件少时才会用到
   
+* TS编译选项(2)
+  * compilerOptions
+    * target  用来指定ts被编译为的ES版本
+      * 可选值：'es3','es5','es6','es2015','es2016','es2017','es2018','es2019','es2020'
+    * module  指定要使用的模块化的规范
+      * 可选值：'none', 'commonjs', 'amd', 'system', 'umd', 'es6','es2015', 'es2020', 'es2022', 'esnext', 'node16'
+    * lib  用来指定项目中要使用的库
+      * 可选值：贼多，就不列举了，大概包含es的各种版本
+    * outDir 用来指定编译后文件所在的目录
+      * 默认情况下，编译后的js文件会和ts文件位于相同的目录，设置outDir后可以改变编译后文件的位置，就是可以把编译后的js文件统一归拢到dist文件夹中
+      * ```"outDir": "./dist"```
+    * outFile  将代码合并为一个文件
+      * 设置outFile后，所有的全局作用域中的代码会合并到同一个文件中
+      * ```    "outFile": "./dist/app.js"```
+      * 值得注意的是，全局作用域下的代码会合并到同一个文件中，但如果有模块化的代码/文件时，需要把module设置为amd或system才可以顺利合并
+    * 
 
 ###总结
 * a：是程序自动显示的，代码里不用敲
