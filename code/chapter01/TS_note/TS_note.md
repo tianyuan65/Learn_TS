@@ -186,6 +186,7 @@
       * 可选值：'es3','es5','es6','es2015','es2016','es2017','es2018','es2019','es2020'
     * module  指定要使用的模块化的规范
       * 可选值：'none', 'commonjs', 'amd', 'system', 'umd', 'es6','es2015', 'es2020', 'es2022', 'esnext', 'node16'
+      * 一般值就是es2015
     * lib  用来指定项目中要使用的库
       * 可选值：贼多，就不列举了，大概包含es的各种版本
     * outDir 用来指定编译后文件所在的目录
@@ -195,7 +196,41 @@
       * 设置outFile后，所有的全局作用域中的代码会合并到同一个文件中
       * ```    "outFile": "./dist/app.js"```
       * 值得注意的是，全局作用域下的代码会合并到同一个文件中，但如果有模块化的代码/文件时，需要把module设置为amd或system才可以顺利合并
-    * 
+    * allowJS  ，默认是false，就是不编译
+      * ```"allowJs": true```
+      * 但是有需要编译js代码的情况，此时需要将值改成true，编译后即可在dist目录中找到编译后的js文件
+    * checkJS  是否检查js代码是否符合语法规范，默认也是false
+      * 在js文件中，先创建一个变量hh，并赋值数值类型，再赋值其他类型不会报错，但把checkJS的值修改为true，就可以对js代码进行检查
+        * ![改为true后就会报错](images/检查js代码.PNG)
+    * removeComments  是否删除注释，默认值为false，改为true后，再次编译文件注释内容不会出现在合并的文件中
+    * noEmit  不生成编译后的文件，默认值为false
+      * 用在不想使用ts的编译功能，指向检查一下语法，用的不多
+    * noEmitOnError  有错误的情况下不进行编译，会直接报错，默认值为false，改为true，再编译就会报错
+    * alwaysStrict  用来设置编译后的文件是否使用严格模式，默认false，改为true，就会自动启用严格模式
+    * noImplicitAny  不允许隐式的any类型，默认false
+      * ![值为true时，就会检查参数或属性是否有隐式的any类型](images/不允许隐式的any类型.png)
+        * 如上图所述，此时给参数加上类型就可以了
+    * noImplicitThis  不允许不明确类型的this，默认false
+      * ![值为true时，会检查代码中的this是否是有明确类型的](images/不明确的this.png)
+        * 解决方案，在函数参数里定义this的类型，在此可以给this定义任意类型地值，any也行(我定了window)
+    * strictNullChecks  严格检查空值，默认false
+      * ![网页当中获取的box1元素不一定存在](images/严格检查空值.png)
+      * 解决方法：
+        * ```
+          let box1= document.getElementById('box1')
+          方法1
+          if(box1!==null) {
+               box1.addEventListener('click', function () {
+                   alert('hello')
+               })
+          }
+          方法2
+          box1?.addEventListener('click',function () {
+          alert('hello')
+          })
+          ```
+    * strict  所有严格检查的总开关
+      * 如果是true，alwaysStrict到strictNullChecks的值默认都是true/false，也就可以不写
 
 ###总结
 * a：是程序自动显示的，代码里不用敲

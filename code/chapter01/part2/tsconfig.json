@@ -47,7 +47,39 @@
 
     //outFile  将代码合并为一个文件
     //设置outFile后，所有的全局作用域中的代码会合并到同一个文件中
-    "outFile": "./dist/app.js"
+    "outFile": "./dist/app.js",
+
+    //allowJs  是否对js文件进行编译，默认是false，就是不编译
+    //"allowJs": true,
+
+    //checkJs  是否检查js代码是否符合语法规范，默认也是false
+    //"checkJs": true,
+
+    //是否删除注释，默认值为false，改为true后，再次编译文件注释内容不会出现在合并的文件中
+    "removeComments": true,
+
+    //不生成编译后的文件，默认值为false
+    "noEmit": false,
+
+    //有错误的情况下不进行编译，会直接报错，默认值为false
+    "noEmitOnError": true,
+
+    //所有严格检查的总开关，如果是true，以下所有默认都是true，也可以不写
+    "strict": true,
+
+    //用来设置编译后的文件是否使用严格模式，默认false
+    "alwaysStrict": true,
+
+    //不允许隐式的any类型
+    "noImplicitAny": true,
+
+    //不允许不明确类型的this
+    "noImplicitThis": true,
+
+    //严格检查空值
+    "strictNullChecks": true,
+
+
   }
 }
 
