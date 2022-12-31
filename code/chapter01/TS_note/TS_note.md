@@ -231,6 +231,85 @@
           ```
     * strict  所有严格检查的总开关
       * 如果是true，alwaysStrict到strictNullChecks的值默认都是true/false，也就可以不写
+  
+* 使用webpack打包ts代码
+  * 初始化项目
+    * 进入项目根目录(part03)，执行命令npm init -y，创建package.json文件
+  * 下载创建工具
+    * 命令：```npm i -D webpack webpack-cli webpack-dev-server typescript ts-loader ```
+    * 共安装了5个包：
+      * webpack：构建工具webpack 
+      * webpack-cli：webpack的命令行工具
+      * webpack-dev-server：webpack的开发服务器
+      * typescript：ts编译器
+      * ts-loader：ts加载器，用于在webpack中编译ts文件
+  * 配置webpack，在根目录下创建webpack的配置文件webpack.config.js
+    * ```
+      const path = require("path");
+      module.exports = {
+        optimization:{
+          minimize: false // 关闭代码压缩，可选
+        },      
+        entry: "./src/index.ts",      
+        devtool: "inline-source-map",      
+        devServer: {
+          contentBase: './dist'
+        },      
+        output: {
+        path: path.resolve(__dirname, "dist"),
+          filename: "bundle.js",
+          environment: {
+          arrowFunction: false // 关闭webpack的箭头函数，可选
+          }
+        },      
+        resolve: {
+          extensions: [".ts", ".js"]
+        },      
+        module: {
+        rules: [
+            {
+              //test指定的是规则生效的文件
+              //用ts-loader处理(编译)以ts结尾的文件
+              test: /\.ts$/,
+              use: {
+                loader: "ts-loader",
+                //要排除的文件
+                exclude: /node_modules/    
+              },
+              
+            }
+          ]
+        },      
+        plugins: [
+            new CleanWebpackPlugin(),
+            new HtmlWebpackPlugin({
+            title:'TS测试'
+            }),
+          ]
+      }
+      ```
+  * 配置TS编译选项，在根目录下创建tsconfig.json，配置可以根据自己需要
+    * ```
+      {
+        "compilerOptions": {
+          "target": "ES2015",
+          "module": "ES2015",
+          "strict": true
+        }
+      }
+      ```
+  * 修改package.json配置
+    * ```
+      {
+        "scripts": {
+          "test": "echo \"Error: no test specified\" && exit 1",
+          "build": "webpack",
+          "start": "webpack serve --open chrome.exe"
+        }
+      }
+      ```
+  * 项目执行
+    * 打包，在src下创建ts文件，并在并命令行执行npm run build或npm start对代码进行编译
 
 ###总结
 * a：是程序自动显示的，代码里不用敲
