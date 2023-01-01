@@ -278,14 +278,13 @@
                 //要排除的文件
                 exclude: /node_modules/    
               },
-              
             }
           ]
         },      
         plugins: [
             new CleanWebpackPlugin(),
             new HtmlWebpackPlugin({
-            title:'TS测试'
+              title:'自定义title'
             }),
           ]
       }
@@ -312,6 +311,48 @@
       ```
   * 项目执行
     * 打包，在src下创建ts文件，并在并命令行执行npm run build或npm start对代码进行编译
+  * Babel
+    * 安装依赖包 npm i -D @babel/core @babel/preset-env babel-loader core-js
+    * 共安装四个包：
+      * @babel/core：babel的核心工具
+      * @babel/preset-env：babel的预定义环境
+      * @babel-loader：babel在webpack中的加载器
+      * core-js：core-js用来使老版本的浏览器支持新版ES语法
+    * 修改webpack.config.js配置文件
+      * ```
+        module: {
+          rules: [
+            {
+              test: /\.ts$/,
+              use: [
+            {
+            loader: "babel-loader",
+            options:{
+              presets: [
+                [
+                  "@babel/preset-env",
+                    {
+                      "targets":{
+                        "chrome": "108",
+                    },
+                  "corejs":"3",
+                  "useBuiltIns": "usage"
+                     }
+                ]
+               ]
+              }
+            },
+            {
+               loader: "ts-loader",
+             }
+          ],
+          exclude: /node_modules/
+            }
+          ]
+        }
+        ```
+    * 如此，使用ts编译后的文件将会再次被babel处理，使代码可以在大部分浏览器直接使用，同时可以在配置选项的targets中指定兼容的浏览器版本
+  
 
 ###总结
 * a：是程序自动显示的，代码里不用敲
