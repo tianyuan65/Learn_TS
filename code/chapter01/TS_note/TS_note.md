@@ -236,13 +236,15 @@
   * 初始化项目
     * 进入项目根目录(part03)，执行命令npm init -y，创建package.json文件
   * 下载创建工具
-    * 命令：```npm i -D webpack webpack-cli webpack-dev-server typescript ts-loader ```
-    * 共安装了5个包：
+    * 命令：```npm i -D webpack webpack-cli webpack-dev-server typescript ts-loader clean-webpack-plugin```
+    * 共安装了7个包：
       * webpack：构建工具webpack 
       * webpack-cli：webpack的命令行工具
       * webpack-dev-server：webpack的开发服务器
       * typescript：ts编译器
       * ts-loader：ts加载器，用于在webpack中编译ts文件
+      * html-webpack-plugin：webpack中html插件，用来自动创建html文件
+      * clean-webpack-plugin：webpack中的清除插件，每次构建都会先清除目录
   * 配置webpack，在根目录下创建webpack的配置文件webpack.config.js
     * ```
       const path = require("path");
