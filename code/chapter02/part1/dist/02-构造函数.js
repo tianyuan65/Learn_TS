@@ -5,7 +5,7 @@ class Dog {
     constructor(name, age) {
         //在实例方法中，this表示当前的实例
         //在构造函数中，当前对象就是当前新建的那个对象
-        //可以通过this向新建的对象中添加属性
+        //所以，在构造函数中，可以通过this向新建的对象中添加属性
         // console.log(this)
         this.name = name;
         this.age = age;
