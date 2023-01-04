@@ -431,6 +431,40 @@
         dog.bark()
         dog2.bark()
         ```
+    * 继承，子类继承父类时，必须调用父类的构造方法如果子类中也定义了构造方法
+      * ```
+        class Animal {
+          name:string;
+          age:number
+          constructor(name:string,age:number) {
+            this.name=name;
+            this.age=age
+          }
+          sayHello(){
+            console.log('你瞎喊什么！！')
+          }
+        }
+        //使Dog类继承Animal类
+        class Dog extends Animal {
+          run(){
+            console.log(`${this.name}你跑啥！！`)
+          }
+          sayHello() {
+            console.log('汪汪汪')
+          }
+        }
+        //定义一个表示猫的类
+        //使Cat类继承Animal类
+        class Cat extends Animal {
+          sayHello() {
+            console.log('喵喵喵')
+          }
+        }
+        ```
+      * 可以把父类的方法和属性原原本本的继承，还可以子类中直接添加子类独有的某些属性；修改父类属性才是重写
+      * 优点：可以在不修改原来类的基础上，创建一个继承原来类的新的类，并进行扩展(添加新的属性和方法)
+      * 如果在子类中添加了和父类相同的方法，则子类方法会覆盖掉父类的方法,这种子类覆盖掉父类方法的形式，我们称为方法重写
+    * 
 
 ###总结
 * a：是程序自动显示的，代码里不用敲
@@ -447,3 +481,6 @@
   * 在构造函数中(以上面的constructor为例)，this就是新创建的对象，就是dog2
   * 在实例方法中(以上面的bark()为例)，this就是谁调用bark()方法，谁就是this；this表示当前对象，如果dog.bark()（这个方法时通过dog对象调用的），此时this就是dog，也就是狗桑
     * ***前提是在实例方法的环境下，静态另说***
+* 继承
+  * 可以把父类的方法和属性原原本本的继承，还可以子类中直接添加子类独有的某些属性；修改父类属性才是重写
+  * 优点：可以在不修改原来类的基础上，创建一个继承原来类的新的类，并进行扩展(添加新的属性和方法)
