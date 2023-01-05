@@ -1,4 +1,4 @@
-//立即调用寒素
+//立即调用函数
 (function () {
     //定义一个Animal类
     class Animal {

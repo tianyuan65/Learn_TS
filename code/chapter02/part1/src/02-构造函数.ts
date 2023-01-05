@@ -20,6 +20,8 @@ class Dog{
         console.log(this.name);
         console.log(this.age);
     }
+
+
 }
 
 const dog=new Dog('狗桑',3)
