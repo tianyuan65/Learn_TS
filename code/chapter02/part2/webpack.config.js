@@ -1,9 +1,9 @@
 //引入一个包
 const path=require('path')
 //引入html插件
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 //引入clean插件
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 
 //webpack中的所有的配置信息都应该写在module.exports中
@@ -52,7 +52,7 @@ module.exports = {
                                             "chrome":"108"
                                         },
                                         //指定core-js的版本
-                                        "core-js":"3",
+                                        "corejs":"3",
                                         //使用core-js的方式  "usage"表示按需加载
                                         "useBuiltIns":"usage"
                                     }
@@ -60,12 +60,11 @@ module.exports = {
                             ]
                         }
                     },
-                    {
-                        loader: 'ts-loader'
-                    }
+                    'ts-loader'
+
                 ],
                 //要排除的文件
-                exclude:/node-mudules/
+                exclude:/node-modules/
             },
             //设置less文件的处理
             {
@@ -73,6 +72,24 @@ module.exports = {
                 use:[
                     "style-loader",
                     "css-loader",
+                    
+                    //引入postcss
+                    {
+                      loader:"postcss-loader",
+                        options: {
+                          postcssOptions:{
+                              plugins: [
+                                   [
+                                    "postcss-preset-env",
+                                        {
+                                            browsers:'last 2 versions'
+                                        }
+                                   ] 
+                                      
+                              ]
+                          }
+                        }
+                    },
                     "less-loader"
                 ]
             }
@@ -81,7 +98,7 @@ module.exports = {
 
     //配置webpack插件
     plugins: [
-        new HtmlWebpackPlugin({
+        new HTMLWebpackPlugin({
             // title:"自定义的title"
             template: "./src/index.html"
         }),
