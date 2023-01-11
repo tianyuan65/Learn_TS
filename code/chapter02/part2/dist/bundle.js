@@ -16,7 +16,7 @@
   \**********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_index_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style/index.less */ \"./src/style/index.less\");\n/* harmony import */ var _modules_Food__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/Food */ \"./src/modules/Food.ts\");\n//引入样式\n\n\nconst food = new _modules_Food__WEBPACK_IMPORTED_MODULE_1__[\"default\"]();\nconsole.log(food.X, food.Y);\nfood.change();\nconsole.log(food.X, food.Y);\n\n//# sourceURL=webpack://snake/./src/index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_index_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style/index.less */ \"./src/style/index.less\");\n/* harmony import */ var _modules_GameControl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/GameControl */ \"./src/modules/GameControl.ts\");\n//引入样式\n\n// import Food from './modules/Food';\n// const food=new Food()\n// console.log(food.X,food.Y)\n// food.change()\n// console.log(food.X,food.Y)\n\nconst gameControl = new _modules_GameControl__WEBPACK_IMPORTED_MODULE_1__[\"default\"]();\n// setInterval(()=>{\n//     console.log(gameControl.direction)\n// },1000)\n\n//# sourceURL=webpack://snake/./src/index.ts?");
 
 /***/ }),
 
@@ -27,6 +27,36 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": function() { return __WEBPACK_DEFAULT_EXPORT__; }\n/* harmony export */ });\n//定义食物类Food\nclass Food {\n  constructor() {\n    //获取页面中的food元素，并将其赋值给element\n    this.element = document.getElementById('food');\n  }\n  //定义一个获取食物X轴坐标的方法\n  get X() {\n    return this.element.offsetLeft;\n  }\n  //定义一个获取食物Y轴坐标的方法\n  get Y() {\n    return this.element.offsetTop;\n  }\n  //改变食物的位置\n  change() {\n    //生成一个随机的位置\n    //事物的位置最小是0 最大是298\n    //蛇移动一次就是一格，一格的大小就是10，所以就要求食物的坐标必须是10的倍数\n    let top = Math.round(Math.random() * 29) * 10;\n    // Math.floor(Math.random()*30)*10\n    let left = Math.round(Math.random() * 29) * 10;\n    this.element.style.left = left + 'px';\n    this.element.style.top = top + 'px';\n  }\n}\n//测试\n// const food=new Food()\n// console.log(food.X,food.Y)\n// food.change()\n// console.log(food.X,food.Y)\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Food);\n\n//# sourceURL=webpack://snake/./src/modules/Food.ts?");
+
+/***/ }),
+
+/***/ "./src/modules/GameControl.ts":
+/*!************************************!*\
+  !*** ./src/modules/GameControl.ts ***!
+  \************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": function() { return __WEBPACK_DEFAULT_EXPORT__; }\n/* harmony export */ });\n/* harmony import */ var _Snake__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Snake */ \"./src/modules/Snake.ts\");\n/* harmony import */ var _Food__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Food */ \"./src/modules/Food.ts\");\n/* harmony import */ var _ScorePanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ScorePanel */ \"./src/modules/ScorePanel.ts\");\n//引入其他的类\n\n\n\n//游戏的控制器，控制其他的所有类\nclass GameControl {\n  constructor() {\n    //创建一个属性来存储红色的移动方向(也就是按键的方向)\n    this.direction = '';\n    this.snake = new _Snake__WEBPACK_IMPORTED_MODULE_0__[\"default\"]();\n    this.food = new _Food__WEBPACK_IMPORTED_MODULE_1__[\"default\"]();\n    this.scorePanel = new _ScorePanel__WEBPACK_IMPORTED_MODULE_2__[\"default\"]();\n    this.init();\n  }\n  //游戏的初始化方法，调用后游戏即开始\n  init() {\n    //绑定键盘按键按下的事件\n    document.addEventListener('keydown', this.keydownHandler.bind(this));\n    //调用run方法，使\n  }\n  /*\r\n   * ArrowUp  Up\r\n   * ArrowDown  Down\r\n   * ArrowLeft  Left\r\n   * ArrowRight  Right\r\n   */\n  //创建一个键盘按下的响应函数\n  keydownHandler(event) {\n    //需要检查event.key的值是否合法(用户是否按了正确的按键)\n    //修改diretion属性\n    this.direction = event.key;\n  }\n  //创建一个控制蛇移动的方法\n  run() {\n    /*\r\n     * 根据方向(this.diretion)来使蛇的为之改变\r\n     * 向上 top 减少\r\n     * 向下 top 增加\r\n     * 向左 left 减少\r\n     * 向右 left 增加\r\n     */\n    //获取蛇现在的坐标\n    let X = this.snake.X;\n    let Y = this.snake.Y;\n    //根据按键的方向来修改X值和Y值\n    switch (this.direction) {\n      case \"ArrowUp\":\n      case \"Up\":\n        //向上移动top 减少\n        Y -= 10;\n        break;\n      case \"ArrowDown\":\n      case \"Down\":\n        //向下移动top 增加\n        Y += 10;\n        break;\n      case \"ArrowLeft\":\n      case \"Left\":\n        //向左移动left 减少\n        X -= 10;\n        break;\n      case \"ArrowRight\":\n      case \"Right\":\n        //向右移动left 增加\n        X += 10;\n        break;\n    }\n    //修改蛇的X值和Y值\n    this.snake.X = X;\n    this.snake.Y = Y;\n  }\n}\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GameControl);\n\n//# sourceURL=webpack://snake/./src/modules/GameControl.ts?");
+
+/***/ }),
+
+/***/ "./src/modules/ScorePanel.ts":
+/*!***********************************!*\
+  !*** ./src/modules/ScorePanel.ts ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": function() { return __WEBPACK_DEFAULT_EXPORT__; }\n/* harmony export */ });\n//定义表示记分牌的类\nclass ScorePanel {\n  constructor(maxLevel = 10, upScore = 10) {\n    //score和level用来记录分数和等级\n    this.score = 0;\n    this.level = 1;\n    this.scoreEle = document.getElementById('score');\n    this.levelEle = document.getElementById('level');\n    this.maxLevel = maxLevel;\n    this.upScore = upScore;\n  }\n  //设置一个加分的方法\n  addScore() {\n    //使分数自增\n    this.score++;\n    this.scoreEle.innerHTML = this.score + '';\n    //判断分数是多少\n    if (this.score % this.upScore === 0) {\n      this.levelUp();\n    }\n  }\n  //提升等级的方法\n  levelUp() {\n    if (this.level < this.maxLevel) {\n      this.level++;\n      this.levelEle.innerHTML = this.level + '';\n    }\n  }\n}\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ScorePanel);\n//测试代码\n// const scorePanel=new ScorePanel()\n// for (let i = 0; i < 10; i++) {\n//     scorePanel.addScore()\n// }\n\n//# sourceURL=webpack://snake/./src/modules/ScorePanel.ts?");
+
+/***/ }),
+
+/***/ "./src/modules/Snake.ts":
+/*!******************************!*\
+  !*** ./src/modules/Snake.ts ***!
+  \******************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": function() { return __WEBPACK_DEFAULT_EXPORT__; }\n/* harmony export */ });\nclass Snake {\n  constructor() {\n    this.element = document.getElementById('snake');\n    this.head = document.querySelector('#snake>div');\n    this.bodies = this.element.getElementsByTagName('div');\n  }\n  //获取蛇X轴的坐标(蛇头坐标)\n  get X() {\n    return this.head.offsetLeft;\n  }\n  //获取蛇Y轴的坐标\n  get Y() {\n    return this.head.offsetTop;\n  }\n  //设置蛇头的坐标\n  set X(value) {\n    this.head.style.left = value + 'px';\n  }\n  set Y(value) {\n    this.head.style.top = value + 'px';\n  }\n  //蛇增加身体的方法\n  addBody() {\n    //向element中添加一个div\n    this.element.insertAdjacentHTML(\"beforeend\", \"<div></div>>\");\n  }\n}\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Snake);\n\n//# sourceURL=webpack://snake/./src/modules/Snake.ts?");
 
 /***/ }),
 

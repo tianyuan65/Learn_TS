@@ -13,6 +13,9 @@ class GameControl{
 
     //创建一个属性来存储红色的移动方向(也就是按键的方向)
     direction:string='';
+    //创建一个属性用来记录游戏是否结束
+    isLive=true;
+
 
     constructor() {
         this.snake=new Snake()
@@ -26,6 +29,8 @@ class GameControl{
     init(){
         //绑定键盘按键按下的事件
         document.addEventListener('keydown',this.keydownHandler.bind(this));
+        //调用run方法，使蛇移动
+        this.run()
     }
 
     /*
@@ -38,7 +43,7 @@ class GameControl{
     //创建一个键盘按下的响应函数
     keydownHandler(event:KeyboardEvent){
         //需要检查event.key的值是否合法(用户是否按了正确的按键)
-        //修改diretion属性
+        //修改direction属性
         this.direction=event.key;
     }
 
@@ -81,6 +86,9 @@ class GameControl{
         //修改蛇的X值和Y值
         this.snake.X=X;
         this.snake.Y=Y;
+
+        //开启一个定时调用
+        this.isLive && setTimeout(this.run.bind(this),300-(this.scorePanel.level-1)*30);
     }
 }
 
